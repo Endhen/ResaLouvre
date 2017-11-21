@@ -1,8 +1,3 @@
-louvre_core:
-    resource: "@LouvreCoreBundle/Resources/config/routing.yml"
+louvre_resa:
+    resource: "@LouvreResaBundle/Resources/config/routing.yml"
     prefix:   /
-
-louvre_ticketing:
-    resource: "@LouvreTicketingBundle/Resources/config/routing.yml"
-    prefix:   /
-

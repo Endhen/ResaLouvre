@@ -15,8 +15,7 @@ class AppKernel extends Kernel
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            new Louvre\TicketingBundle\LouvreTicketingBundle(),
-            new Louvre\CoreBundle\LouvreCoreBundle(),
+            new Louvre\ResaBundle\LouvreResaBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

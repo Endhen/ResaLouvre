@@ -1,3 +1,0 @@
-louvre_ticketing:
-    path:     /ticketing
-    defaults: { _controller: LouvreTicketingBundle:Ticketing:registration }
