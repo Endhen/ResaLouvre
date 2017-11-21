@@ -16,11 +16,12 @@ class TicketingController extends Controller
         
         $form = $this->get('form.factory')->create(BookingType::class, $booking);
         
-        if($request->isMethod('POST') && $form->isValid()) {
+        if($request->isMethod('POST') /*&& $form->isValid()*/) {
             $form->handleRequest($request);
             
             $em = $this->getDoctrine()->getManager();
-            $em->persist($ticket);
+            
+            $em->persist($booking);
             $em->flush();
             
             return $this->redirectToRoute('louvre_ticketing');

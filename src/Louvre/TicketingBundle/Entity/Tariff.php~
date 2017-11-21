@@ -91,28 +91,4 @@ class Tariff
     {
         return $this->ticket;
     }
-
-    /**
-     * Add ticket
-     *
-     * @param \Louvre\TicketingBundle\Entity\Ticket $ticket
-     *
-     * @return Tariff
-     */
-    public function addTicket(\Louvre\TicketingBundle\Entity\Ticket $ticket)
-    {
-        $this->ticket[] = $ticket;
-
-        return $this;
-    }
-
-    /**
-     * Remove ticket
-     *
-     * @param \Louvre\TicketingBundle\Entity\Ticket $ticket
-     */
-    public function removeTicket(\Louvre\TicketingBundle\Entity\Ticket $ticket)
-    {
-        $this->ticket->removeElement($ticket);
-    }
 }

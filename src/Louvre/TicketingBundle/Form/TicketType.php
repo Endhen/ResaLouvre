@@ -26,8 +26,12 @@ class TicketType extends AbstractType
             ->add('lastName',     TextType::class)
             ->add('email',        EmailType::class)
             ->add('ticketDate',   DateType::class)
-            ->add('reducedPrice', CheckboxType::class)
-            ->add('day',          CheckboxType::class)
+            ->add('reducedPrice', CheckboxType::class, array(
+                'required' => false
+            ))
+            ->add('day',          CheckboxType::class, array(
+                'required' => false
+            ))
             ->add('tariffs',      EntityType::class, array(
                 'class' => 'LouvreTicketingBundle:Tariff',
                 'choice_label' => 'name',
