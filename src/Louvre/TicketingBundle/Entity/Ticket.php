@@ -68,6 +68,11 @@ class Ticket
      */
     private $day;
 
+    /**
+    * @ORM\ManyToOne(targetEntity="Louvre\TicketingBundle\Entity\Booking", inversedBy="ticket")
+    * @ORM\JoinColumn(nullable=false)
+    */
+    private $booking;
 
     /**
      * Get id
@@ -152,27 +157,27 @@ class Ticket
     }
 
     /**
-     * Set tariff
+     * Set tariffs
      *
-     * @param string $tariff
+     * @param string $tariffs
      *
      * @return Ticket
      */
-    public function setTariff($tariff)
+    public function setTariffs($tariffs)
     {
-        $this->tariff = $tariff;
+        $this->tariffs = $tariffs;
 
         return $this;
     }
 
     /**
-     * Get tariff
+     * Get tariffs
      *
      * @return string
      */
-    public function getTariff()
+    public function getTariffs()
     {
-        return $this->tariff;
+        return $this->tariffs;
     }
 
     /**

@@ -60,12 +60,32 @@ class Tariff
 
     /**
      * Get name
-     *
-     * @return string
      */
     public function getName()
     {
         return $this->name;
+    }
+    
+    /**
+     * Set ticket
+     *
+     * @param string $ticket
+     *
+     * @return Ticket
+     */
+    public function setTicket($ticket)
+    {
+        $this->ticket = $ticket;
+
+        return $this;
+    }
+
+    /**
+     * Get ticket
+     */
+    public function getTicket()
+    {
+        return $this->ticket;
     }
 }
 
