@@ -10,4 +10,16 @@ namespace Louvre\ResaBundle\Repository;
  */
 class TicketRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function lastTickets() 
+    {
+        $queryBuilder = $this
+            ->createQueryBuilder('b')
+            ->where('b.ticketCommand IS NULL')
+            ->orderBy('b.id', 'desc');
+        
+        $query = $queryBuilder->getQuery();
+        $results = $query->getResult();
+        
+        return $results;
+  }
 }

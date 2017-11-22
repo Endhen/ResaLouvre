@@ -50,12 +50,14 @@ class TicketCommand
     /**
      * Add ticket
      *
-     * @param \Louvre\TicketingBundle\Entity\Ticket $ticket
+     * @param \Louvre\ResaBundle\Entity\Ticket $ticket
      *
      * @return TicketCommand
      */
-    public function addTicket(\Louvre\TicketingBundle\Entity\Ticket $ticket)
+    public function addTicket(\Louvre\ResaBundle\Entity\Ticket $ticket)
     {
+        $ticket->setTicketCommand($this);
+        
         $this->tickets[] = $ticket;
 
         return $this;
@@ -64,9 +66,9 @@ class TicketCommand
     /**
      * Remove ticket
      *
-     * @param \Louvre\TicketingBundle\Entity\Ticket $ticket
+     * @param \Louvre\ResaBundle\Entity\Ticket $ticket
      */
-    public function removeTicket(\Louvre\TicketingBundle\Entity\Ticket $ticket)
+    public function removeTicket(\Louvre\ResaBundle\Entity\Ticket $ticket)
     {
         $this->tickets->removeElement($ticket);
     }

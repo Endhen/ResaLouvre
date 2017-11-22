@@ -1,4 +1,5 @@
 services:
-#    louvre_resa.example:
-#        class: Louvre\ResaBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    louvre_resa.idslinker:
+        class: Louvre\ResaBundle\IdsLinker\IdsLinker
+        arguments:
+             - "@doctrine.orm.entity_manager"

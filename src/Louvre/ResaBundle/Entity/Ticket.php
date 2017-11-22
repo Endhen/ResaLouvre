@@ -79,7 +79,7 @@ class Ticket
     
     /**
     * @ORM\ManyToOne(targetEntity="Louvre\ResaBundle\Entity\ticketCommand", inversedBy="ticket")
-    * @ORM\JoinColumn(name="ticketCommand_id", referencedColumnName="id", nullable=true)
+    * @ORM\JoinColumn(name="ticketCommand_id", referencedColumnName="id", nullable=false)
     */
     private $ticketCommand;
 
@@ -289,11 +289,11 @@ class Ticket
     /**
      * Set ticketCommand
      *
-     * @param \Louvre\TicketingBundle\Entity\Order $ticketCommand
+     * @param \Louvre\ResaBundle\Entity\TicketCommand $ticketCommand
      *
      * @return Ticket
      */
-    public function setTicketCommand(\Louvre\TicketingBundle\Entity\TicketCommand $ticketCommand = null)
+    public function setTicketCommand(\Louvre\ResaBundle\Entity\TicketCommand $ticketCommand = null)
     {
         $this->ticketCommand = $ticketCommand;
 
@@ -303,7 +303,7 @@ class Ticket
     /**
      * Get ticketCommand
      *
-     * @return \Louvre\TicketingBundle\Entity\Order
+     * @return \Louvre\ResaBundle\Entity\TicketCommand
      */
     public function getTicketCommand()
     {

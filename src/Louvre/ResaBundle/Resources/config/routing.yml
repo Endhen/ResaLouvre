@@ -4,6 +4,6 @@ louvre_resa_booking:
         _controller: LouvreResaBundle:Resa:booking 
     
 louvre_resa_command:
-    path:     /command
+    path:     /command/{id}
     defaults:
         _controller: LouvreResaBundle:Resa:command 

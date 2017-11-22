@@ -72,13 +72,13 @@ class Booking
     /**
      * Set ticketCommand
      *
-     * @param string $ticketCommand
+     * @param \Louvre\ResaBundle\Entity\TicketCommand $ticketCommand
      *
      * @return Booking
      */
-    public function setTicketCommand($ticketCommand)
+    public function setTicketCommand(\Louvre\ResaBundle\Entity\TicketCommand $ticketCommand)
     {
-        $this->ticketCommand = $ticketCommand;
+        $this->ticketCommand = $ticketCommand->getId();
 
         return $this;
     }
@@ -86,7 +86,7 @@ class Booking
     /**
      * Get ticketCommand
      *
-     * @return string
+     * @return @return \Louvre\ResaBundle\Entity\TicketCommand
      */
     public function getTicketCommand()
     {
