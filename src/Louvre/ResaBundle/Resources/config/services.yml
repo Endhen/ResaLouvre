@@ -3,3 +3,13 @@ services:
         class: Louvre\ResaBundle\IdsLinker\IdsLinker
         arguments:
              - "@doctrine.orm.entity_manager"
+             
+    louvre_resa.bill_maker:
+        class: Louvre\ResaBundle\BillMaker\BillMaker
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            
+    louvre_resa.availability:
+        class: Louvre\ResaBundle\Avai\Avai
+        arguments:
+            - "@doctrine.orm.entity_manager"

@@ -3,6 +3,7 @@
 namespace Louvre\ResaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Louvre\ResaBundle\Validator\OpenDays;
 
 /**
  * Ticket
@@ -51,6 +52,8 @@ class Ticket
 
     /**
      * @var \DateTime
+     *
+     * @OpenDays()
      *
      * @ORM\Column(name="ticketDate", type="datetime")
      */

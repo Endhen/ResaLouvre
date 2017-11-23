@@ -10,7 +10,6 @@ use Louvre\ResaBundle\Entity\Booking;
 use Louvre\ResaBundle\Entity\TicketCommand;
 use Louvre\ResaBundle\Form\BookingType;
 use Louvre\ResaBundle\Form\TicketCommandType;
-//use Louvre\ResaBundle\IdsLinker;
 
 class ResaController extends Controller
 {
@@ -48,7 +47,7 @@ class ResaController extends Controller
         
         $form = $this->get('form.factory')->create(TicketCommandType::class, $ticketCommand);
         
-        if($request->isMethod('POST')) {
+        if($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             $form->handleRequest($request);
             
             $em = $this->getDoctrine()->getManager();

@@ -3,6 +3,7 @@
 namespace Louvre\ResaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * TicketCommand
@@ -23,6 +24,7 @@ class TicketCommand
     
     /**
     * @ORM\OneToMany(targetEntity="Louvre\ResaBundle\Entity\Ticket", mappedBy="TicketCommand", cascade={"persist", "remove"})
+    * @assert\Valid()
     */
     private $tickets;
 
