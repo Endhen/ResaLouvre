@@ -4,9 +4,17 @@ namespace Louvre\ResaBundle\Validator;
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
+use Louvre\ResaBundle\Services\Avail\Avail;
 
 class OpenDaysValidator extends ConstraintValidator 
 {
+    private $avail;
+    
+    public function __construct(Avail $avail) 
+    {    
+        $this->avail = $avail;
+    }
+    
     public function validate ($date ,Constraint $constraint) 
     {
         $now = new \DateTime();
@@ -14,10 +22,16 @@ class OpenDaysValidator extends ConstraintValidator
         if($date->format('w') == '2') {
             $this
                 ->context
-                ->buildViolation($constraint->tuesday)
+                ->buildViolation($constraint->closedDay)
                 ->setParameters(array('%date%' => 'le Mardi'))
                 ->addViolation();
             
+        } elseif(!$this->avail->isAvailable($date)) {
+            $this
+                ->context
+                ->buildViolation($constraint->full)
+                ->setParameters(array('%date%' => $date->format('d m Y')))
+                ->addViolation();
         } elseif($date < $now) {
             $this
                 ->context

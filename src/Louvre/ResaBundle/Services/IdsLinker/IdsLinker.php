@@ -1,6 +1,6 @@
 <?php 
 
-namespace Louvre\ResaBundle\IdsLinker;
+namespace Louvre\ResaBundle\Services\IdsLinker;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Louvre\ResaBundle\Entity\Booking;
@@ -20,13 +20,10 @@ class IdsLinker {
         $this->tickets = $em->getRepository('LouvreResaBundle:Ticket')->lastTickets();
     }
     
-    public function setBooking(Booking $booking) {
-        $this->booking = $booking;
-        return $this;
-    }
-    
-    public function linkIds() 
+    public function linkIds(Booking $booking) 
     {
+        $this->booking = $booking;
+        
         foreach ($this->tickets as $ticket) {
             $this->ticketCommand->addTicket($ticket);
             $this->em->persist($ticket);

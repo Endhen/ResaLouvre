@@ -1,15 +1,21 @@
 services:
     louvre_resa.idslinker:
-        class: Louvre\ResaBundle\IdsLinker\IdsLinker
+        class: Louvre\ResaBundle\Services\IdsLinker\IdsLinker
         arguments:
              - "@doctrine.orm.entity_manager"
              
     louvre_resa.bill_maker:
-        class: Louvre\ResaBundle\BillMaker\BillMaker
+        class: Louvre\ResaBundle\Services\BillMaker\BillMaker
         arguments:
             - "@doctrine.orm.entity_manager"
             
     louvre_resa.availability:
-        class: Louvre\ResaBundle\Avai\Avai
+        class: Louvre\ResaBundle\Services\Avail\Avail
         arguments:
             - "@doctrine.orm.entity_manager"
+            
+    louvre_resa.open_days:
+        class: Louvre\ResaBundle\Validator\OpenDaysValidator
+        arguments: ["@louvre_resa.availability"]
+        tags:
+            - { name: validator.constraint_validator, alias: louvre_resa_opendays } 

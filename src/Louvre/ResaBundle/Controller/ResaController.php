@@ -11,6 +11,7 @@ use Louvre\ResaBundle\Entity\TicketCommand;
 use Louvre\ResaBundle\Form\BookingType;
 use Louvre\ResaBundle\Form\TicketCommandType;
 
+
 class ResaController extends Controller
 {
     public function BookingAction(Request $request)
@@ -45,10 +46,13 @@ class ResaController extends Controller
     {
         $ticketCommand = new TicketCommand();
         
+        //Penser a la demi journée uniquement disponible après 14h
         $form = $this->get('form.factory')->create(TicketCommandType::class, $ticketCommand);
         
         if($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             $form->handleRequest($request);
+            
+            $this->get('louvre_resa.bill_maker')->getBill($ticketCommand);
             
             $em = $this->getDoctrine()->getManager();
             $em->persist($booking);
@@ -57,7 +61,6 @@ class ResaController extends Controller
             
             $this
                 ->get('louvre_resa.idslinker')
-                ->setBooking($booking)
                 ->linkIds();
             
             return $this->redirectToRoute('louvre_resa_booking');
@@ -68,5 +71,9 @@ class ResaController extends Controller
             'form' => $form->createView(),
             'nbtickets' => $nb
         ));
+    }
+    
+    public function payementAction() {
+        
     }
 }
