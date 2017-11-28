@@ -24,7 +24,7 @@ class TicketCommand
     
     /**
     * @ORM\OneToMany(targetEntity="Louvre\ResaBundle\Entity\Ticket", mappedBy="TicketCommand", cascade={"persist", "remove"})
-    * @assert\Valid()
+    * @Assert\Valid()
     */
     private $tickets;
 

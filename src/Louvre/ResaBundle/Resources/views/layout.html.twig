@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet">
+    {% block css %}
+    {% endblock %}
+    
+    <title>Réservation Louvre</title>
+</head>
+
+<body>
+    <header>
+        <img src="../../../images/Musee_du_Louvre_1992_logo.png" class="logo" alt="logo">
+        
+        <ul class="prog">
+            <li><p>Résevation</p></li>
+            <li><p>Payement</p></li>
+            <li><p>Confirmation</p></li>
+        </ul>
+    </header>
+    
+    <main>
+        {% block main %}
+        {% endblock %}
+        <div class="footer">
+            <button class="back transform" onclick="window.location.href='/app_dev.php/'"> Retour a l'acceuil </button>
+        </div>
+        
+    </main>
+    
+    {% block js %}
+    {% endblock %}
+</body>
+    
+</html>

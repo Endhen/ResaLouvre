@@ -1,0 +1,96 @@
+
+
+.prog > li:nth-child(2) {
+    background-color: #d7a037;
+}
+
+.contener {
+    width: 100%;
+    height: 100%;
+    padding: 30px;
+    
+    display: flex;
+    align-items: baseline;
+    flex-direction: row;
+}
+
+h1 {
+    padding: 20px;
+    
+    border-radius: 2px 2px 0px 0px;
+    
+    background-color:#c1c1c1;
+    
+}
+
+.summary {
+    margin-bottom: 30px;
+    
+    border-radius: 0px 0px 2px 2px;
+    
+    background-color: aliceblue;
+}
+
+.summary > div {
+    padding: 15px;
+}
+
+.summary > p {
+    padding: 10px;
+    
+    background-color:#dcdcdc;
+}
+
+.tickets {
+    overflow-y: scroll;
+}
+
+.stripForm {
+    width: 60vw;
+    margin-left: 5vw;
+    padding: 20px;
+    margin: 30px;
+    
+    background-color: aliceblue;
+}
+
+
+.sumbitPayement {
+    position: fixed;
+    z-index: 100;
+    right: 10vw;
+    bottom: 5px;
+    padding: 10px 20px 10px 20px;
+    
+    border-width: 0px;
+    border-radius: 4px;
+    box-shadow: 0 2px #4433114a;
+    
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+}
+
+.submitPayement:hover {background-color: #bbbbbb}
+
+.submitPayement:active {
+  background-color: #B78930;
+  box-shadow: 0 0px #bbbbbb;
+  transform: translateY(4px);
+}
+
+@media screen and (max-width: 768px) {
+    
+    .stripForm {
+        width: 80vw;
+        margin: 0;
+        margin-left: 0;
+        margin-bottom: 20px;
+    }
+    
+    .contener {
+        flex-direction: column-reverse;
+        align-items: stretch;
+    }
+}

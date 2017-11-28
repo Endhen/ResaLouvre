@@ -16,10 +16,10 @@ class TicketRepository extends \Doctrine\ORM\EntityRepository
             ->createQueryBuilder('b')
             ->where('b.ticketCommand IS NULL')
             ->orderBy('b.id', 'desc');
-        
+
         $query = $queryBuilder->getQuery();
         $results = $query->getResult();
-        
+
         return $results;
-  }
+    }
 }

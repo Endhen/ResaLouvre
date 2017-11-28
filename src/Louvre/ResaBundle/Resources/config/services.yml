@@ -1,4 +1,13 @@
 services:
+    #obselete
+    louvre_resa.cleaner:
+        class: Louvre\ResaBundle\Services\ResaCleaner\Cleaner
+        arguments:
+             - "@doctrine.orm.entity_manager"
+             
+    louvre_resa.data_crypter:
+        class: Louvre\ResaBundle\Services\DataCryptor\DataCryptor
+             
     louvre_resa.idslinker:
         class: Louvre\ResaBundle\Services\IdsLinker\IdsLinker
         arguments:
@@ -13,9 +22,22 @@ services:
         class: Louvre\ResaBundle\Services\Avail\Avail
         arguments:
             - "@doctrine.orm.entity_manager"
-            
+
+    louvre_resa.mailer:
+        class: Louvre\ResaBundle\Service\Mailer\Mailer
+        arguments: 
+            - "@mailer"
+            - "@twig"
+
     louvre_resa.open_days:
         class: Louvre\ResaBundle\Validator\OpenDaysValidator
         arguments: ["@louvre_resa.availability"]
         tags:
             - { name: validator.constraint_validator, alias: louvre_resa_opendays } 
+            
+    louvre_resa.half_day:
+        class: Louvre\ResaBundle\Validator\HalfDayValidator
+        tags:
+            - { name: validator.constraint_validator, alias: louvre_resa_halfday } 
+    
+

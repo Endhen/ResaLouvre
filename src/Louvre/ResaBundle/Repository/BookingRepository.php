@@ -17,10 +17,26 @@ class BookingRepository extends \Doctrine\ORM\EntityRepository
             ->where('b.ticketCommand IS NULL')
             ->orderBy('b.id', 'desc')
             ->setMaxResults(1);
-        
+
         $query = $queryBuilder->getQuery();
         $results = $query->getResult()[0];
-        
+
         return $results;
-  }
+    }
+    
+    public function deleteUnfinished() 
+    {
+        /*
+        $queryBuilder = $this
+            ->createQuery('DELETE Booking b WHERE b.ticketCommand IS NULL')
+            ->execute();*/
+        
+        $queryBuilder = $this
+            ->createQueryBuilder('b')
+            ->delete('Louvre\ResaBundle\Entity\Booking', 'b')
+            ->where('b.ticketCommand IS NULL')
+            ->getQuery()
+            ->execute();
+    }
+    
 }

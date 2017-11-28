@@ -1,0 +1,77 @@
+{% extends "LouvreResaBundle::Layout.html.twig" %}
+
+{% block css %}
+    {% stylesheets 
+        'bundles/louvreresa/css/layout.css'
+        'bundles/louvreresa/css/command.css'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
+
+
+{% block main %}
+
+{% set index = 1 %}
+
+{{ form_start(form, {'attr': {
+        'form': 'booking',
+        'class': 'ticketsContener'
+}}) }}
+
+{{ form_errors(form) }}
+
+
+
+{% for ticket in form.tickets %}
+
+<div class="header">
+    <h2>Billet n°{{ index }}</h2> 
+    {{ form_errors(ticket.ticketDate) }}
+    
+    {% for error in ticket.vars.errors %}
+        {{ error.message }}
+    {% endfor %}
+    
+    {{ form_errors(ticket.halfDay) }}
+</div>
+
+<div class="formContener">
+    <table>
+        <tbody>
+            <tr>
+                <td>{{ form_widget(ticket.lastName, {'attr': {'placeholder': 'Nom' }}) }}</td>
+                <td>{{ form_widget(ticket.firstName, {'attr': {'placeholder': 'Prénom' }}) }}</td>
+            </tr> 
+            <tr>
+                <td>{{ form_label(ticket.birthday) }}</td><td>{{ form_widget(ticket.birthday) }}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(ticket.country) }}</td><td>{{ form_widget(ticket.country) }}</td>
+            </tr> 
+            <tr>
+                <th colspan="2">{{ form_widget(ticket.email, {'attr': {'placeholder': 'Saisisez votre email' }}) }}</th>
+            </tr>
+            <tr>
+                <td >{{ form_label(ticket.ticketDate) }}</td><td>{{ form_widget(ticket.ticketDate) }}</td>
+            </tr>
+            <tr>
+                <td>{{ form_widget(ticket.halfDay) }}</td><td>{{ form_widget(ticket.reducedPrice) }}</td>
+            </tr> 
+        </tbody>
+    </table>
+</div>
+
+{% set index = index + 1 %}
+
+{% endfor %}
+
+{{ form_widget(form.save) }}
+
+{{ form_end(form) }}
+
+{% endblock %}
+
+
+
+

@@ -3,6 +3,7 @@
 namespace Louvre\ResaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Booking
@@ -23,7 +24,7 @@ class Booking
     
     /**
     * @ORM\Column(name="ticket_command", nullable=true)
-    * @ORM\OneToOne(targetEntity="Louvre\ResaBundle\Entity\TicketCommand")
+    * @ORM\OneToOne(targetEntity="Louvre\ResaBundle\Entity\TicketCommand", cascade={"remove"})
     */
     private $ticketCommand;
     
@@ -31,6 +32,11 @@ class Booking
      * @var int
      *
      * @ORM\Column(name="nbTickets", type="integer")
+     * @Assert\Range(
+            min=1, 
+            max=10, 
+            minMessage="Vous ne pouvez pas resever moin d'un billet",
+            maxMessage="Vous ne pouvez pas reservez plus de 10 tickets")
      */
     private $nbTickets;
 

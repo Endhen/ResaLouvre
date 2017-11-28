@@ -1,0 +1,9 @@
+
+
+{% block Booking %}
+
+{{ form_start(form) }}
+{{ form_widget(form.nbTickets, {'attr': {'value': 1}}) }} {{ form_widget(form.save) }}
+{{ form_end(form) }}
+
+{% endblock %}

@@ -8,7 +8,12 @@ louvre_resa_command:
     defaults:
         _controller: LouvreResaBundle:Resa:command 
         
-louvre_resa_command:
+louvre_resa_payement:
     path:     /payement/{id}
     defaults:
-        _controller: LouvreResaBundle:Resa:payement 
+        _controller: LouvreResaBundle:Resa:payement
+        
+louvre_resa_test:
+    path:     /test
+    defaults:
+        _controller: LouvreResaBundle:Resa:test 

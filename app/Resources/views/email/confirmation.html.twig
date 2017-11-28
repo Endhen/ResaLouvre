@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<!-- ticketCommand date total -->
+
+<html>
+    <header>
+        <img>
+    </header>
+    
+<p>Bonjour, </p> 
+
+<p>Votre commande a bien été enregistré : </p>
+
+<div>
+    Résumé de la commande : {{ date }}
+
+    N° de commande : {{ ticketCommand.id }}
+    Code de résevation : {{ code }}
+
+    <div>
+        {% for ticket in ticketCommand %}
+
+        <p>N°Ticket : {{ ticket.id }}</p>
+
+        <p>Nom : {{ ticket.lastName }} Prénom : {{ ticket.firstName }}</p>
+
+        <p>Date : {{ ticket.date }} {% if(ticket.halfDay) %} Demi-journée {% endif %}</p>
+
+        <p>Prix : {{ ticket.price }} € </p>
+
+        {% endfor %}
+    </div>
+
+    <p>Total : {{ total }}</p>
+</div>
+
+</html>
+

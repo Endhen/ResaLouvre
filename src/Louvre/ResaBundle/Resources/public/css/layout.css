@@ -1,0 +1,151 @@
+
+
+* {
+    margin: 0px;
+    padding: 0px;
+    
+    font-family: 'EB Garamond', serif;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    
+    background-color: #edd29e24;
+    background-image: url('../../../images/bg-louvre-blured.jpg');
+    background-attachment: fixed;
+    
+    display: flex;
+    flex-direction: column;
+    
+    
+}
+
+/* Header { */
+header {
+    position: fixed;
+    width: 100%;
+    height:auto;
+    
+    border-bottom: 3px solid #d7a037;
+
+    display: flex;
+    align-items: stretch;
+    color: #545454;
+}
+
+.prog {
+    width: auto;
+    display: flex;
+    justify-content: space-around;
+    flex-grow: 1;
+}
+
+.prog > * {
+    width: auto;
+    padding: 2vh;
+    
+    text-align: center;
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.prog > li {
+    background-color: #e1b461;
+}
+.prog > p {
+    font-size: 20px;
+}
+h1 {
+    font-size: 20px;
+}
+
+.logo {
+    
+    height: 12vh;
+    min-height: 63px;
+    width: auto;
+}
+
+
+
+
+/* } */
+
+
+main {
+    width: 100%;
+    height: auto;
+    padding-top: 15vh;
+    
+    flex-grow: 2;
+    display: flex;
+    justify-content: center;
+}
+
+
+/* Footer { */
+
+.footer {
+    position: fixed;
+    margin-top: 30px;
+    padding: 10px 0px 5px 10px;
+    bottom: 0px;
+    
+    width: 100%;
+    height: 5vh;
+    min-height: 31px;
+    
+    background-color: #e1b461;
+    
+    align-self: flex-start;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+}
+
+/* } */
+
+.back {
+    position: fixed;
+    z-index: 100;
+    left: 10vw;
+    bottom: 5px;
+    padding: 10px 20px 10px 20px;
+    
+    border-width: 0px;
+    border-radius: 4px;
+    box-shadow: 0 2px #4433114a;
+    
+
+    
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+}
+
+.back {
+    position: fixed;
+    left: 10vw;
+    bottom: 5px;
+    padding: 10px 20px 10px 20px;
+    
+    border-width: 0px;
+    border-radius: 4px;
+    box-shadow: 0 2px #4433114a;
+    
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+}
+
+.back:hover {background-color: #bbbbbb}
+
+.back:active {
+  background-color: #B78930;
+  box-shadow: 0 0px #bbbbbb;
+  transform: translateY(4px);
+}

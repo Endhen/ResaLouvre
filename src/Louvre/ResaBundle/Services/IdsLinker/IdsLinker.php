@@ -29,8 +29,6 @@ class IdsLinker {
             $this->em->persist($ticket);
         }
         
-        /*var_dump($this->ticketCommand);
-        exit;*/
         
         $this->booking->setTicketCommand($this->ticketCommand);
         

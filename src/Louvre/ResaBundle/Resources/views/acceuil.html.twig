@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet">
+    {% stylesheets 
+        'bundles/louvreresa/css/acceuil.css'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+    
+    <title>Réservation Louvre</title>
+</head>
+
+<body>
+    
+    <aside>
+        <img src="../../../images/Musee_du_Louvre_1992_logo.png" class="logo" alt="logo">
+        <div class="info">
+            <h2>Horaires :</h2>
+            <p>Ouvert tout les jours de 8h à 19h sauf le Mardi.</p>
+            <p>Dates de fermeture : </p>
+            <ul>
+                <li>1er Mai</li>
+                <li>1er Novembre</li>
+                <li>25 Décembre</li>
+            </ul>
+        </div>
+    </aside>
+    
+    <main>
+        <div class="resaForm">
+            <h1>Reservez vos places pour le Louvre dès maintenant</h1>
+            {{ include("LouvreResaBundle:form:Booking.html.twig") }}
+        </div>
+    </main>  
+    
+    <footer>
+        <div class="info">
+            <h2>Horaires :</h2>
+            <p>Ouvert tout les jours de 8h à 19h sauf le Mardi.</p>
+            <p>Dates de fermeture : </p>
+            <ul>
+                <li>1er Mai</li>
+                <li>1er Novembre</li>
+                <li>25 Décembre</li>
+            </ul>
+        </div>
+    </footer>
+    {% javascripts  
+        
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+</body>
+    
+</html>

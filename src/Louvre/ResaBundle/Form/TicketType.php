@@ -13,6 +13,8 @@ use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 
+use Louvre\ResaBundle\Entity\Ticket;
+
 class TicketType extends AbstractType
 {
     /**
@@ -20,17 +22,24 @@ class TicketType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $now = (int) (new \DateTime)->format('Y');
+        
         $builder
             ->add('firstName',      TextType::class)
             ->add('lastName',       TextType::class)
-            ->add('email',          EmailType::class)
-            ->add('country',        CountryType::class)
-            ->add('ticketDate',     DateType::class)
+            ->add('email',          EmailType::class, array(
+                'error_bubbling' => true
+            ))
+            ->add('country',        CountryType::class, array(
+                'preferred_choices' => array('FR', 'GB', 'ES', 'IT', 'DE', 'BEL', 'CH')))
+            ->add('ticketDate',     DateType::class, array(
+                'years' => range( $now , $now + 3 )
+            ))
             ->add('birthday',       BirthdayType::class)
             ->add('reducedPrice',   CheckboxType::class, array(
                 'required' => false
             ))
-            ->add('day',            CheckboxType::class, array(
+            ->add('halfDay',            CheckboxType::class, array(
                 'required' => false
             ));
     }
@@ -41,7 +50,7 @@ class TicketType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Louvre\ResaBundle\Entity\Ticket'
+            'data_class' => ticket::class
         ));
     }
 
