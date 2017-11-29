@@ -1,6 +1,6 @@
 
 
-{% extends "LouvreResaBundle::Layout.html.twig" %}
+{% extends "LouvreResaBundle::layout.html.twig" %}
 
 {% block css %}
 <style>
@@ -149,11 +149,12 @@ function stripeTokenHandler(token) {
     
     total.setAttribute('type', 'hidden');
     total.setAttribute('name', 'total');
-    total.setAttribute('value', {{ total }});
+    total.setAttribute('value', {{ total }} * 100 );
     
     hiddenInput.setAttribute('type', 'hidden');
     hiddenInput.setAttribute('name', 'stripeToken');
     hiddenInput.setAttribute('value', token.id);
+    form.appendChild(total);
     form.appendChild(hiddenInput);
 
     // Submit the form

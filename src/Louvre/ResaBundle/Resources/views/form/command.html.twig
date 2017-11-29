@@ -1,4 +1,4 @@
-{% extends "LouvreResaBundle::Layout.html.twig" %}
+{% extends "LouvreResaBundle::layout.html.twig" %}
 
 {% block css %}
     {% stylesheets 
@@ -21,6 +21,9 @@
 
 {{ form_errors(form) }}
 
+<div class="email">
+    {{ form_widget(form.email, {'attr': {'placeholder': 'Saisisez votre email' }}) }}
+</div>
 
 
 {% for ticket in form.tickets %}
@@ -48,9 +51,6 @@
             </tr>
             <tr>
                 <td>{{ form_label(ticket.country) }}</td><td>{{ form_widget(ticket.country) }}</td>
-            </tr> 
-            <tr>
-                <th colspan="2">{{ form_widget(ticket.email, {'attr': {'placeholder': 'Saisisez votre email' }}) }}</th>
             </tr>
             <tr>
                 <td >{{ form_label(ticket.ticketDate) }}</td><td>{{ form_widget(ticket.ticketDate) }}</td>
@@ -70,6 +70,12 @@
 
 {{ form_end(form) }}
 
+{% endblock %}
+
+{% block aside %}
+<aside>
+    <p>Il sera nécessaire de présenter sa carte d’étudiant, militaire ou équivalent lors de l’entrée pour bénéficier d'un tarif réduit.</p>
+</aside>
 {% endblock %}
 
 

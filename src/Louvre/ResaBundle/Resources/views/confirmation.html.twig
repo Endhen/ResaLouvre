@@ -1,0 +1,20 @@
+
+{% extends "LouvreResaBundle::layout.html.twig" %}
+
+{% block css %}
+    {% stylesheets 
+        'bundles/louvreresa/css/layout.css'
+        'bundles/louvreresa/css/confirmation.css'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block main %}
+
+<div class="confirmation">
+    <h1>votre commande a bien été {{ action }}.</h1>
+    <p>{{ message }}<span class="email">{{ email }}</span></p>
+</div>
+
+{% endblock %}

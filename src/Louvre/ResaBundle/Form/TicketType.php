@@ -7,7 +7,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -27,9 +26,6 @@ class TicketType extends AbstractType
         $builder
             ->add('firstName',      TextType::class)
             ->add('lastName',       TextType::class)
-            ->add('email',          EmailType::class, array(
-                'error_bubbling' => true
-            ))
             ->add('country',        CountryType::class, array(
                 'preferred_choices' => array('FR', 'GB', 'ES', 'IT', 'DE', 'BEL', 'CH')))
             ->add('ticketDate',     DateType::class, array(

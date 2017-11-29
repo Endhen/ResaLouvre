@@ -11,27 +11,33 @@
 
 <p>Votre commande a bien été enregistré : </p>
 
-<div>
-    Résumé de la commande : {{ date }}
-
-    N° de commande : {{ ticketCommand.id }}
-    Code de résevation : {{ code }}
-
-    <div>
-        {% for ticket in ticketCommand %}
-
-        <p>N°Ticket : {{ ticket.id }}</p>
-
-        <p>Nom : {{ ticket.lastName }} Prénom : {{ ticket.firstName }}</p>
-
-        <p>Date : {{ ticket.date }} {% if(ticket.halfDay) %} Demi-journée {% endif %}</p>
-
-        <p>Prix : {{ ticket.price }} € </p>
-
-        {% endfor %}
+<div class="contener">
+    <div class="summary">
+        <h1>Résumé de votre commande   :   {{ date }}</h1>
+        <p>Code de résevation : {{ code }}</p>
+        
+        <div>
+            <table>
+                <tbody>
+                    
+                    <div class="tickets">
+                        {% for ticket in tickets %}
+                        <tr>
+                            <td>Nom : {{ ticket.lastName }}</td><td>Prénom : {{ ticket.firstName }}</td>
+                        </tr>
+                        <tr>
+                            <td>Date : {{ ticket.ticketDate.format('d/m/Y') }}</td><td>{% if(ticket.halfDay) %} Demi-journée {% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td>Prix : {{ ticket.price }} € </td><td></td>
+                        </tr>
+                        {% endfor %}
+                    </div>
+                </tbody>
+            </table>
+        </div>
+        <p>Total : {{ total }} €</p>
     </div>
-
-    <p>Total : {{ total }}</p>
 </div>
 
 </html>

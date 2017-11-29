@@ -1,0 +1,18 @@
+.prog > li:nth-child(3) {
+    background-color: #d7a037;
+}
+
+.confirmation {
+    margin-top: 5vh;
+    width: 60vw;
+    height: 30vh;
+    
+    border-radius: 3px;
+    
+    background-color: #e1b461;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

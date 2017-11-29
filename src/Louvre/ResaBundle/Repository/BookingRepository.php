@@ -25,16 +25,12 @@ class BookingRepository extends \Doctrine\ORM\EntityRepository
     }
     
     public function deleteUnfinished() 
-    {
-        /*
-        $queryBuilder = $this
-            ->createQuery('DELETE Booking b WHERE b.ticketCommand IS NULL')
-            ->execute();*/
-        
+    {   
         $queryBuilder = $this
             ->createQueryBuilder('b')
             ->delete('Louvre\ResaBundle\Entity\Booking', 'b')
             ->where('b.ticketCommand IS NULL')
+            ->andWhere('b.charge IS NULL')
             ->getQuery()
             ->execute();
     }

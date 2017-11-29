@@ -135,28 +135,4 @@ class Booking
     {
         return $this->code;
     }
-
-    /**
-     * Set charge
-     *
-     * @param string $charge
-     *
-     * @return Booking
-     */
-    public function setCharge($charge)
-    {
-        $this->charge = $charge;
-
-        return $this;
-    }
-
-    /**
-     * Get charge
-     *
-     * @return string
-     */
-    public function getCharge()
-    {
-        return $this->charge;
-    }
 }

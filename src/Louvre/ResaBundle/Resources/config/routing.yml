@@ -4,14 +4,19 @@ louvre_resa_booking:
         _controller: LouvreResaBundle:Resa:booking 
     
 louvre_resa_command:
-    path:     /command/{id}
+    path:     /command/{code}
     defaults:
         _controller: LouvreResaBundle:Resa:command 
         
 louvre_resa_payement:
-    path:     /payement/{id}
+    path:     /payement/{code}
     defaults:
         _controller: LouvreResaBundle:Resa:payement
+        
+louvre_resa_confirmation:
+    path:     /confirmation
+    defaults:
+        _controller: LouvreResaBundle:Resa:confirmation
         
 louvre_resa_test:
     path:     /test

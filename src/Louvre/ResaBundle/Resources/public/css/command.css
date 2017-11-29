@@ -45,6 +45,20 @@
     background-color: #d7a037;
 }
 
+.email {
+    padding: 20px;
+    width: 40vw;
+    margin-bottom: 25px;
+    
+    border-radius: 3px;
+    
+    background-color: #d7a037;
+}
+
+#louvre_resabundle_ticketcommand_email {
+    width: 95%;
+}
+
 table {
     border-spacing: 25px 5px;
 }
@@ -102,12 +116,11 @@ label {
     right: 10vw;
     bottom: 5px;
     padding: 10px 20px 10px 20px;
+    z-index: 100;
     
     border-width: 0px;
     border-radius: 4px;
     box-shadow: 0 2px #4433114a;
-    
-
     
     display: inline-block;
     text-align: center;
@@ -126,6 +139,64 @@ label {
 .list-unstyled > li {
     margin-left: 20px;
     list-style-type: square;
+}
+
+@media screen and (max-width: 920px) and (min-width: 620px){
+    
+    .email {
+        width: 60vw;
+    }
+    
+    .header {
+        width: 60vw;
+    }
+    
+    .formContener {
+        width: 60vw;
+    }
+}
+
+@media screen and (max-width: 620px) {
+    
+    .email {
+        width: 100%;
+    }
+    
+    .header {
+        width: 100%;
+    }
+    
+    .formContener {
+        width: 100%;
+    }
+    
+    input {
+        padding: 10px;
+        width: 100%;
+
+        border-width: 0px;
+        border-radius: 2px;
+    }
+    
+    tr {
+        width: auto;
+        margin: 0px 0px 0px 0px;
+        padding: 10px;
+    }
+}
+
+aside {
+    position: absolute;
+    top: 20vh;
+    margin-top: 5vh;
+    padding: 20px;
+    width: 20vw;
+    height: auto;
+    
+    border-radius: 2px;
+    
+    background-color: #b1d2d45c;
+    
 }
 
 /*

@@ -8,6 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Louvre\ResaBundle\Form\Ticket;
 
@@ -20,12 +21,13 @@ class TicketCommandType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('tickets', CollectionType::class, array(
+            ->add('email',      EmailType::class)
+            ->add('tickets',    CollectionType::class, array(
                 'entry_type' => TicketType::class,
                 'allow_add' => true,
                 'entry_options' => array('label' => false),
             ))
-            ->add('save', SubmitType::class);
+            ->add('save',       SubmitType::class);
     }
     
     /**

@@ -16,7 +16,7 @@ class Cleaner {
         $entity = array('Booking', 'TicketCommand', 'Ticket');
         
         foreach ($entity) {
-            $this->em->getRepository('LouvreResaBundle:Booking'.$entity)->;
+            $this->em->getRepository('LouvreResaBundle:Booking')->;
         }
         
         

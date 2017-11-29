@@ -33,14 +33,14 @@ class Charge
      *
      * @ORM\Column(name="currency", type="string", length=255)
      */
-    private $currency = "eur";
+    private $currency;
 
     /**
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=255)
      */
-    private $description = "Payement réservation Louvre";
+    private $description;
 
     /**
      * @var string
@@ -156,3 +156,4 @@ class Charge
         return $this->source;
     }
 }
+

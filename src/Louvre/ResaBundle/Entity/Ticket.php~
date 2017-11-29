@@ -4,6 +4,8 @@ namespace Louvre\ResaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Louvre\ResaBundle\Validator\OpenDays;
+use Louvre\ResaBundle\Validator\HalfDay;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Ticket
@@ -39,13 +41,6 @@ class Ticket
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=255)
-     */
-    private $email;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="country", type="string", length=255)
      */
     private $country;
@@ -76,20 +71,21 @@ class Ticket
     /**
      * @var bool
      *
-     * @ORM\Column(name="day", type="boolean")
+     * @ORM\Column(name="half_day", type="boolean")
+     * @HalfDay()
      */
-    private $day;
+    private $halfDay;
     
     /**
     * @var integer
     * 
-    * @ORM\Column(name="price", type="integer")
+    * @ORM\Column(name="price", type="integer", nullable=true)
     */
     private $price;
     
     /**
-    * @ORM\ManyToOne(targetEntity="Louvre\ResaBundle\Entity\ticketCommand", inversedBy="ticket")
-    * @ORM\JoinColumn(name="ticketCommand_id", referencedColumnName="id", nullable=false)
+    * @ORM\ManyToOne(targetEntity="Louvre\ResaBundle\Entity\TicketCommand", inversedBy="ticket")
+    * @ORM\JoinColumn(name="ticketCommand_id", referencedColumnName="id", nullable=true)
     */
     private $ticketCommand;
 
@@ -273,27 +269,27 @@ class Ticket
     }
 
     /**
-     * Set day
+     * Set halfDay
      *
-     * @param boolean $day
+     * @param boolean $halfDay
      *
      * @return Ticket
      */
-    public function setDay($day)
+    public function setHalfDay($halfDay)
     {
-        $this->day = $day;
+        $this->halfDay = $halfDay;
 
         return $this;
     }
 
     /**
-     * Get day
+     * Get halfDay
      *
      * @return bool
      */
-    public function getDay()
+    public function getHalfDay()
     {
-        return $this->day;
+        return $this->halfDay;
     }
 
     /**
@@ -318,5 +314,29 @@ class Ticket
     public function getTicketCommand()
     {
         return $this->ticketCommand;
+    }
+
+    /**
+     * Set price
+     *
+     * @param integer $price
+     *
+     * @return Ticket
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * Get price
+     *
+     * @return integer
+     */
+    public function getPrice()
+    {
+        return $this->price;
     }
 }

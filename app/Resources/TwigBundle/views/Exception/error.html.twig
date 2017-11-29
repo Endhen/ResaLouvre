@@ -1,0 +1,21 @@
+
+{% extends "LouvreResaBundle::layout.html.twig" %}
+
+{% block css %}
+    {% stylesheets 
+        'bundles/louvreresa/css/layout.css'
+        'bundles/louvreresa/css/error.css'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block main %}
+
+<div class="error">
+    <h1>Une erreur {{ status_code }} s'est produite.</h1>
+    <p>Veuillez nous excuser pour le désagrément, essayez de réitéré l'opération. 
+    Si l'erreur persiste, veuillez nous contacter a cet e-mail : email@email.com</p>
+</div>
+
+{% endblock %}

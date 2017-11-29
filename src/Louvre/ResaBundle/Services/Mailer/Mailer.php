@@ -14,8 +14,8 @@ class Mailer
     
     public function sendMail($message, $email) 
     {
-        $message = (new \Swift_Message($message->getSubject(), $message->getContent()))
-            ->setFrom($message->getSenderEmail())
+        $message = (new \Swift_Message('Email de confirmation'))
+            ->setFrom('bogou.ncho@gmail.com')
             ->setTo($email)
             ->setBody($this->renderTemplate($message));
         
