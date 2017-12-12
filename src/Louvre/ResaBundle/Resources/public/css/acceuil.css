@@ -89,6 +89,23 @@ h1 {
 * > .resaForm {
     align-items: center;
 }
+
+.help-block {
+    width: 40vw;
+    padding: 20px;
+    margin-bottom: 25px;
+    display: block;
+    
+    text-align: center;
+    
+    border-radius: 2px;
+    
+    background-color: #d66654b5;
+}
+
+span li {
+    list-style-type: none;
+}
 /* } */
 
 /* Aside { */ 
@@ -157,6 +174,7 @@ li {
     }
     
     .info {
+        padding: 0px;
         margin-top: 0px;
         
         font-size: 15px;

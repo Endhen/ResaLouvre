@@ -2,10 +2,15 @@
     background-color: #d7a037;
 }
 
+p, h1 {
+    text-align: center;
+}
+
 .confirmation {
     margin-top: 5vh;
     width: 60vw;
     height: 30vh;
+    padding: 10px;
     
     border-radius: 3px;
     
@@ -15,4 +20,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+
+@media screen and (max-width: 768px) {
+    .confirmation {
+        width: 80vw;
+        height: 40vh;
+    }
 }

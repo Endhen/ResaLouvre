@@ -38,9 +38,11 @@ class BillMaker {
     public function getTotal($tickets) {
         $total = 0;
         
+        //var_dump($tickets);exit;
+        
         foreach($tickets as $ticket) {
             
-            $total =+ $ticket->getPrice();
+            $total += $ticket->getPrice();
         }
 
         return $total;  

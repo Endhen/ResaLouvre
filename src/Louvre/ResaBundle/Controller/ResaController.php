@@ -20,66 +20,73 @@ class ResaController extends Controller
     {
         $booking = new Booking();
         
+        //Création du formulaire
         $form = $this->get('form.factory')->create(BookingType::class, $booking);
         
-        if($request->isMethod('POST')) {
-            $form->handleRequest($request);
-            $booking->setCode(crypt(rand(), 'lr'));
+        //Si le formulaire est renvoyé
+        if($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             
-            $em = $this->getDoctrine()->getManager();
-            $em->getRepository('LouvreResaBundle:Booking')->deleteUnfinished();
-            $em->persist($booking);
-            $em->flush();
+            //On stocke le nombre de tickets voulu dans la session
+            $session = $this->container->get('session');
+            $session->set('nbTickets', $booking->getNbTickets());
             
-            $booking = $em->getRepository('LouvreResaBundle:Booking')->lastBooking();
-            
-            return $this->redirectToRoute('louvre_resa_command', array(
-                'code' => $booking->getCode()
-            ));
+            return $this->redirectToRoute('louvre_resa_command');
         }
         
+        //afficher l'erreur de nombre
         return $this->render('LouvreResaBundle::Acceuil.html.twig', array(
             'form' => $form->createView()
         ));
     }
     
-    /*
-    * @ParamConverter("booking", option={"mapping":{"booking_code":"code"}})
-    */
-    public function CommandAction(Request $request, Booking $booking)
+    public function CommandAction(Request $request)
     {
-        
-        // Ou mettre ce code ? 
-        $ticketCommand = new TicketCommand();
-        $ticket = new Ticket();
+        // Définition des variables
+        $session = $this->container->get('session');
+        $nbTickets = $session->get('nbTickets');
+        $ticketCommand = new ticketCommand();
         $x = 0;
-            
-        while($x < $booking->getNbTickets()) {
-            $ticketCommand->getTickets()->add($ticket);
+        
+        //On créer un ticketCommand contenant le nombre voulu de tickets
+        if($nbTickets === null) {
+            $nbTickets = 1;
+        } 
+        
+        while($x < $nbTickets) {
+            $ticket = new ticket();
+            $ticketCommand->addTicket($ticket);
             $x++;
         }
         
+        //On créer le formulaire de ticketCommand
         $form = $this->get('form.factory')->create(TicketCommandType::class, $ticketCommand);
-       
+        
+        //var_dump($ticketCommand);exit;
+        
+        //Supprime les réservations non-finies de plus 20 minutes
+        $this->get('louvre_resa.cleaner')->clean(20);
+        
+        //Si le formulaire est renvoyé
         if($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             
-            //On établit un prix pour chaques billet, pour pas le mettre directement dans l'entité ? 
+            //On établit un prix pour chaques billet
             $this
                 ->get('louvre_resa.bill_maker')
                 ->getBill($ticketCommand);
-
             
+            //On créer la réservasion qui va être flush
+            $booking = (new Booking())
+                ->setNbTickets($nbTickets)
+                ->setTicketCommand($ticketCommand);
+            
+            //var_dump($ticketCommand->getTickets());exit;
+            
+            //On enregistre
             $em = $this->getDoctrine()->getManager();
             $em->persist($booking);
-            $em->persist($ticketCommand);
             $em->flush();
             
-            $this
-                ->get('louvre_resa.idslinker')
-                ->linkIds($booking);
-            
-            $session = $this->container->get('session');
-            $session->set('tCommand', $ticketCommand->getId());
+            //on garde l'email pour la prochaine page
             $session->set('email', $ticketCommand->getEmail());
             
             return $this->redirectToRoute('louvre_resa_payement', array(
@@ -87,10 +94,9 @@ class ResaController extends Controller
             ));
         }
         
-        $nb = $booking->getNbTickets();
         return $this->render('LouvreResaBundle:form:command.html.twig', array(
             'form' => $form->createView(),
-            'nbtickets' => $nb
+            'nbtickets' => $nbTickets
         ));
     }
     
@@ -99,90 +105,137 @@ class ResaController extends Controller
     */
     public function payementAction(Request $request, Booking $booking) {
         
-        $session = $this->container->get('session');
-        
+        // Définition des variables
         $em = $this->getDoctrine()->getManager();
         
+        //On récupère les tickets de la commande en cour
         $tickets = $em
             ->getRepository('LouvreResaBundle:Ticket')
-            ->findByTicketCommand($session->get('tCommand'));
+            ->findByTicketCommand($booking->getTicketCommand()->getId());
         
         $total = $this->get('louvre_resa.bill_maker')->getTotal($tickets);
         
-        
+        // Si le payement Stripe est effectué
         if($request->isMethod('POST')) {
             \Stripe\Stripe::setApiKey("sk_test_eTBOW8h25RzsOIll8oWY6w3Z");
 
-            // Token is created using Checkout or Elements!
-            // Get the payment token ID submitted by the form:
+            // On récupère le token et le prix total
             $token = $_POST['stripeToken'];
-            $total = $_POST['total'];
             
             // Charge the user's card:
-            $StripCharge = \Stripe\Charge::create(array(
-              "amount" => $total,
+            $stripeCharge = \Stripe\Charge::create(array(
+              "amount" => $total*100,
               "currency" => "eur",
               "description" => "Example charge",
               "source" => $token,
             ));
             
-            if($StripCharge->paid){
-                $charge = new Charge();
-                
-                $charge
+            // Si le montant a été payé
+            if($stripeCharge->paid ){
+                //on enregistre la trace du payelent dans la bdd
+                $charge = (new Charge())
+                    ->setChargeId($stripeCharge->id)
                     ->setAmount($total)
-                    ->setDescription($token);
+                    ->setDescription("Test")
+                    ->setSource($token);
                 
+                // On lie le payment a la réservation
                 $booking->setCharge($charge);
                 
                 $em->persist($booking);
                 $em->flush();
                 
-                return $this->redirectToRoute('louvre_resa_confirmation');
+                $this->container->get('session')->set('total', $total);
+                
+                // Et on envoie la confirmation
+                return $this->redirectToRoute('louvre_resa_confirmation', array(
+                    'code' => $booking->getCode()
+                ));
+            } else {
+                $error = 'Le payement n\'a pas pu s\'effecuer, veuillez reessayer';
             }
             
-            $date = (new \DateTime())->format('d/m/Y');
             return $this->render('LouvreResaBundle:form:payement.html.twig', array(
+                'error' => $error,
                 'tickets' => $tickets,
-                'nCommand' => $booking->getId(),
-                'total' => $total,
+                'total' => $total/100,
                 'code' => $booking->getCode(),
-                'date' => $date
+                'date' => $booking->getDateCreation()->format('d/m/Y')
             ));
         }
         
         
-        $date = (new \DateTime())->format('d/m/Y');
         return $this->render('LouvreResaBundle:form:payement.html.twig', array(
+            'error' => null,
             'tickets' => $tickets,
-            'nCommand' => $booking->getId(),
             'total' => $total,
             'code' => $booking->getCode(),
-            'date' => $date
+            'date' => $booking->getDateCreation()->format('d/m/Y')
         ));
     }
     
-    public function confirmationAction() {
+    /*
+    * @ParamConverter("booking", option={"mapping":{"booking_code":"code"}})
+    */
+    public function confirmationAction(Booking $booking) {
+        
+        // Définition des variables
         $session = $this->container->get('session');
-        
         $email = $session->get('email');
+        $total = $session->get('total');
+        $em = $this->getDoctrine()->getManager();
         
-        //envoi d'un email
+        $tickets = $em
+            ->getRepository('LouvreResaBundle:Ticket')
+            ->findByTicketCommand($booking->getTicketCommand()->getId());
+        
+        // On envoi l'email de confimation avec toutes les donées requises
+        $this->get('louvre_resa.mailer')->sendMail(array(
+            'email' => $email,
+            'tickets' => $tickets,
+            'total' => $total/100,
+            'code' => $booking->getCode(),
+            'date' => $booking->getDateCreation()->format('d/m/Y')
+        ));
+        
+        /* Test Email
+        return $this->render('LouvreResaBundle::email.html.twig', array(
+            'email' => $email,
+            'tickets' => $tickets,
+            'total' => $total/100,
+            'code' => $booking->getCode(),
+            'date' => $booking->getDateCreation()->format('d/m/Y')
+        ));*/
         
         return $this->render('LouvreResaBundle::confirmation.html.twig', array(
             'email' => $email,
             'action' => 'enregistré',
-            'message' => 'un récapitulatif de votre commande a été envoyé a votre email : '
+            'message' => 'un récapitulatif de votre commande a été envoyé a votre adresse email : '
         ));
     }
     
-    public function annulationAction() {
+    
+    /*
+    public function cancelAction($code) {
+        \Stripe\Stripe::setApiKey("sk_test_eTBOW8h25RzsOIll8oWY6w3Z");
         
-        return $this->render('LouvreResaBundle:form:strip.html.twig', array(
-            'action' => 'annulé',
-            'message' => 'Vous pouvez recommancer une réservation a la page d\'acceuil'
+        $em = $this->getDoctrine()->getManager();
+        $booking = $em->getRepository('LouvreResaBundle:Booking')->findByCode($code)[0];
+        
+        $chargeId = $booking->getCharge()->getChargeId();
+        
+        $re = \Stripe\Refund::create(array(
+          "charge" => $chargeId
         ));
-    }
+        
+        //refund ? then
+        
+        return $this->render('LouvreResaBundle::confirmation.html.twig', array(
+            'email' => 'truc',
+            'action' => 'annulé',
+            'message' => 'Vous pouvez recommancer une réservation  en retournant a la page d\'acceuil'
+        ));
+    }*/
 }
 
 

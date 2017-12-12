@@ -4,13 +4,18 @@
     margin-top: 5vh;
     width: 60vw;
     height: 30vh;
+    padding: 20px;
     
     border-radius: 3px;
     
-    background-color: #e1b461;
+    background-color: #8c95a045;
     
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+p {
+    text-align: center;
 }

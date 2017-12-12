@@ -23,7 +23,7 @@ class Ticket
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
+    
     /**
      * @var string
      *
@@ -85,11 +85,21 @@ class Ticket
     
     /**
     * @ORM\ManyToOne(targetEntity="Louvre\ResaBundle\Entity\TicketCommand", inversedBy="ticket")
-    * @ORM\JoinColumn(name="ticketCommand_id", referencedColumnName="id", nullable=true)
+    * @ORM\JoinColumn(name="ticketCommand_id", referencedColumnName="id", onDelete="cascade")
     */
     private $ticketCommand;
+    
+    /**
+    * var \Datetime
+    *
+    * @ORM\Column(name="date_creation", type="datetime")
+    */
+    private $dateCreation;
 
-
+    public function __construct() {
+        $this->dateCreation = new \DateTime();
+    }
+    
     /**
      * Get id
      *
@@ -314,5 +324,29 @@ class Ticket
     public function getPrice()
     {
         return $this->price;
+    }
+
+    /**
+     * Set dateCreation
+     *
+     * @param \DateTime $dateCreation
+     *
+     * @return Ticket
+     */
+    public function setDateCreation($dateCreation)
+    {
+        $this->dateCreation = $dateCreation;
+
+        return $this;
+    }
+
+    /**
+     * Get dateCreation
+     *
+     * @return \DateTime
+     */
+    public function getDateCreation()
+    {
+        return $this->dateCreation;
     }
 }

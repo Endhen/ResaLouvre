@@ -23,8 +23,7 @@ class Booking
     private $id;
     
     /**
-    * @ORM\Column(name="ticket_command", nullable=true)
-    * @ORM\OneToOne(targetEntity="Louvre\ResaBundle\Entity\TicketCommand", cascade={"remove"})
+    * @ORM\OneToOne(targetEntity="Louvre\ResaBundle\Entity\TicketCommand", mappedBy="booking", cascade={"all"}, fetch="EAGER")
     */
     private $ticketCommand;
     
@@ -35,8 +34,8 @@ class Booking
      * @Assert\Range(
             min=1, 
             max=10, 
-            minMessage="Vous ne pouvez pas resever moin d'un billet",
-            maxMessage="Vous ne pouvez pas reservez plus de 10 tickets")
+            minMessage="Vous ne pouvez pas reserver moin d'un billet",
+            maxMessage="Vous ne pouvez pas reserver plus de 10 tickets")
      */
     private $nbTickets;
     
@@ -48,11 +47,21 @@ class Booking
     private $code;
 
     /**
-    * @ORM\Column(name="charge", nullable=true)
-    * @ORM\OneToOne(targetEntity="Louvre\ResaBundle\Entity\Charge", cascade={"remove"})
+    * @ORM\OneToOne(targetEntity="Louvre\ResaBundle\Entity\Charge", mappedBy="booking", cascade={"all"})
     */
     private $charge;
     
+    /**
+    * var \Datetime
+    *
+    * @ORM\Column(name="date_creation", type="datetime")
+    */
+    private $dateCreation;
+    
+    public function __construct() {
+        $this->dateCreation = new \DateTime('r');
+        $this->code = strtoupper(uniqid());
+    }
     
     /**
      * Get id
@@ -97,7 +106,9 @@ class Booking
      */
     public function setTicketCommand(\Louvre\ResaBundle\Entity\TicketCommand $ticketCommand)
     {
-        $this->ticketCommand = $ticketCommand->getId();
+        $ticketCommand->setBooking($this);
+        
+        $this->ticketCommand = $ticketCommand;
 
         return $this;
     }
@@ -145,6 +156,8 @@ class Booking
      */
     public function setCharge($charge)
     {
+        $charge->setBooking($this);
+        
         $this->charge = $charge;
 
         return $this;
@@ -158,5 +171,29 @@ class Booking
     public function getCharge()
     {
         return $this->charge;
+    }
+
+    /**
+     * Set dateCreation
+     *
+     * @param \DateTime $dateCreation
+     *
+     * @return Booking
+     */
+    public function setDateCreation($dateCreation)
+    {
+        $this->dateCreation = $dateCreation;
+
+        return $this;
+    }
+
+    /**
+     * Get dateCreation
+     *
+     * @return \DateTime
+     */
+    public function getDateCreation()
+    {
+        return $this->dateCreation;
     }
 }

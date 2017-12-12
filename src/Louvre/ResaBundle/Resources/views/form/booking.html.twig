@@ -3,7 +3,7 @@
 {% block Booking %}
 
 {{ form_start(form) }}
-{{ form_widget(form.nbTickets, {'attr': {'value': 1}}) }} {{ form_widget(form.save) }}
+{{ form_widget(form.nbTickets, {'attr': {'value': 1}}) }} {{ form_widget(form.save, { 'label': 'Résever' }) }}
 {{ form_end(form) }}
-
+{{ form_errors(form.nbTickets) }}
 {% endblock %}

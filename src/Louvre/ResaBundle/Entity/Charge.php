@@ -48,8 +48,34 @@ class Charge
      * @ORM\Column(name="source", type="string", length=255)
      */
     private $source;
+    
+    /**
+    * @var datetime
+    *
+    * @ORM\Column(name="date_creation", type="datetime")
+    */
+    private $dateCreation;
+    
+    /**
+    * @var string
+    *
+    * @ORM\Column(name="charge_id", type="string")
+    */
+    private $chargeId;
+    
+    /**
+    * @var int
+    *
+    * @ORM\OneToOne(targetEntity="Louvre\ResaBundle\Entity\Booking", inversedBy="charge")
+    * @ORM\JoinColumn(name="booking_id", referencedColumnName="id", onDelete="cascade")
+    */
+    private $booking;
 
-
+    
+    public function __construct() {
+        $this->dateCreation = new \DateTime();
+    }
+    
     /**
      * Get id
      *
@@ -154,5 +180,77 @@ class Charge
     public function getSource()
     {
         return $this->source;
+    }
+
+    /**
+     * Set dateCreation
+     *
+     * @param \DateTime $dateCreation
+     *
+     * @return Charge
+     */
+    public function setDateCreation($dateCreation)
+    {
+        $this->dateCreation = $dateCreation;
+
+        return $this;
+    }
+
+    /**
+     * Get dateCreation
+     *
+     * @return \DateTime
+     */
+    public function getDateCreation()
+    {
+        return $this->dateCreation;
+    }
+
+    /**
+     * Set chargeId
+     *
+     * @param string $chargeId
+     *
+     * @return Charge
+     */
+    public function setChargeId($chargeId)
+    {
+        $this->chargeId = $chargeId;
+
+        return $this;
+    }
+
+    /**
+     * Get chargeId
+     *
+     * @return string
+     */
+    public function getChargeId()
+    {
+        return $this->chargeId;
+    }
+
+    /**
+     * Set booking
+     *
+     * @param \Louvre\ResaBundle\Entity\Booking $booking
+     *
+     * @return Charge
+     */
+    public function setBooking(\Louvre\ResaBundle\Entity\Booking $booking = null)
+    {
+        $this->booking = $booking;
+
+        return $this;
+    }
+
+    /**
+     * Get booking
+     *
+     * @return \Louvre\ResaBundle\Entity\Booking
+     */
+    public function getBooking()
+    {
+        return $this->booking;
     }
 }

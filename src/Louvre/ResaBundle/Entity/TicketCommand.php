@@ -31,15 +31,34 @@ class TicketCommand
     private $email;
     
     /**
-    * @ORM\OneToMany(targetEntity="Louvre\ResaBundle\Entity\Ticket", mappedBy="TicketCommand", cascade={"persist", "remove"})
+    * @ORM\OneToMany(targetEntity="Louvre\ResaBundle\Entity\Ticket", mappedBy="ticketCommand", cascade={"all"})
     * @Assert\Valid()
     */
     private $tickets;
+    
+    
+    /**
+    * @ORM\OneToOne(targetEntity="Louvre\ResaBundle\Entity\Booking", inversedBy="ticketCommand")
+    * @ORM\JoinColumn(name="booking_id", referencedColumnName="id", onDelete="cascade")
+    */
+    private $booking;
+    
+    /**
+    * var \Datetime
+    *
+    * @ORM\Column(name="date_creation", type="datetime")
+    */
+    private $dateCreation;
 
-    public function __constructor() {
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->dateCreation = new \DateTime();
         $this->tickets = new \Doctrine\Common\Collections\ArrayCollection();
     }
-
+    
     /**
      * Get id
      *
@@ -48,13 +67,6 @@ class TicketCommand
     public function getId()
     {
         return $this->id;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->tickets = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -86,7 +98,7 @@ class TicketCommand
     /**
      * Get tickets
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \Doctrine\Common\Collections\ArrayCollection
      */
     public function getTickets()
     {
@@ -115,5 +127,53 @@ class TicketCommand
     public function getEmail()
     {
         return $this->email;
+    }
+
+    /**
+     * Set dateCreation
+     *
+     * @param \DateTime $dateCreation
+     *
+     * @return TicketCommand
+     */
+    public function setDateCreation($dateCreation)
+    {
+        $this->dateCreation = $dateCreation;
+
+        return $this;
+    }
+
+    /**
+     * Get dateCreation
+     *
+     * @return \DateTime
+     */
+    public function getDateCreation()
+    {
+        return $this->dateCreation;
+    }
+
+    /**
+     * Set booking
+     *
+     * @param \Louvre\ResaBundle\Entity\Booking $booking
+     *
+     * @return TicketCommand
+     */
+    public function setBooking(\Louvre\ResaBundle\Entity\Booking $booking = null)
+    {
+        $this->booking = $booking;
+
+        return $this;
+    }
+
+    /**
+     * Get booking
+     *
+     * @return \Louvre\ResaBundle\Entity\Booking
+     */
+    public function getBooking()
+    {
+        return $this->booking;
     }
 }

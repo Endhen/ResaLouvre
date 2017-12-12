@@ -1,6 +1,6 @@
 <?php 
 
-namespace Louvre\ResaBundle\Service\Mailer;
+namespace Louvre\ResaBundle\Services\Mailer;
 
 class Mailer 
 {
@@ -12,27 +12,22 @@ class Mailer
         $this->twig = $twig;
     }
     
-    public function sendMail($message, $email) 
+    public function sendMail($data) 
     {
         $message = (new \Swift_Message('Email de confirmation'))
             ->setFrom('bogou.ncho@gmail.com')
-            ->setTo($email)
-            ->setBody($this->renderTemplate($message));
+            ->setTo($data['email'])
+            ->setBody($this->renderTemplate($data));
+        
         
         $this->mailer->send($message);
-            
-        // Envoyer confirmation
     }
     
-    private function renderTemplate($message) {
+    private function renderTemplate($data) {
         return $this->twig->render(
-            //app/Resources/views/Email/conatct.html.twig
-            'Email/comfirmation.html.twig', 
-            array(
-                'ticketCommand' => $ticketCommand, 
-                'total' => $total, 
-                'date' => $date
-            ), 
+            //app/Resources/views/Email/confirmation.html.twig
+            'email/confirmation.html.twig',
+            $data, 
             'text/html'
         );
     }

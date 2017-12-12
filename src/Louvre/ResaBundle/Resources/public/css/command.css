@@ -55,6 +55,19 @@
     background-color: #d7a037;
 }
 
+#info {
+    width: 40vw;
+    padding: 20px;
+    margin-bottom: 25px;
+    display: none;
+    
+    text-align: center;
+    
+    border-radius: 2px;
+    
+    background-color: #d6545454;
+}
+
 #louvre_resabundle_ticketcommand_email {
     width: 95%;
 }
@@ -65,13 +78,15 @@ table {
 
 .formContener {
     width: 40vw;
-    height: auto;
+    
     padding: 20px;
     margin-bottom: 25px;
     
     border-radius: 0px 0px 3px 3px;
     
     background-color: #e1b461;
+    display: flex;
+    justify-content: center;
 }
 
 tr {
@@ -159,15 +174,15 @@ label {
 @media screen and (max-width: 620px) {
     
     .email {
-        width: 100%;
+        width: 80%;
     }
     
     .header {
-        width: 100%;
+        width: 80%;
     }
     
     .formContener {
-        width: 100%;
+        width: 80%;
     }
     
     input {
@@ -183,21 +198,16 @@ label {
         margin: 0px 0px 0px 0px;
         padding: 10px;
     }
+    
+    aside {
+        display: none;
+    }
+    
+    .min {
+        max-width: 58vw;
+    }
 }
 
-aside {
-    position: absolute;
-    top: 20vh;
-    margin-top: 5vh;
-    padding: 20px;
-    width: 20vw;
-    height: auto;
-    
-    border-radius: 2px;
-    
-    background-color: #b1d2d45c;
-    
-}
 
 /*
 Pour la version mobible faire 3/4 logo 1/4 Titre "Réservation"

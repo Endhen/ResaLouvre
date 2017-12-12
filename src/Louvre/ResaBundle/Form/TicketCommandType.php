@@ -24,7 +24,6 @@ class TicketCommandType extends AbstractType
             ->add('email',      EmailType::class)
             ->add('tickets',    CollectionType::class, array(
                 'entry_type' => TicketType::class,
-                'allow_add' => true,
                 'entry_options' => array('label' => false),
             ))
             ->add('save',       SubmitType::class);

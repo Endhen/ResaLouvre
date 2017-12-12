@@ -9,30 +9,5 @@ namespace Louvre\ResaBundle\Repository;
  * repository methods below.
  */
 class BookingRepository extends \Doctrine\ORM\EntityRepository
-{
-    public function lastBooking() 
-    {
-        $queryBuilder = $this
-            ->createQueryBuilder('b')
-            ->where('b.ticketCommand IS NULL')
-            ->orderBy('b.id', 'desc')
-            ->setMaxResults(1);
-
-        $query = $queryBuilder->getQuery();
-        $results = $query->getResult()[0];
-
-        return $results;
-    }
-    
-    public function deleteUnfinished() 
-    {   
-        $queryBuilder = $this
-            ->createQueryBuilder('b')
-            ->delete('Louvre\ResaBundle\Entity\Booking', 'b')
-            ->where('b.ticketCommand IS NULL')
-            ->andWhere('b.charge IS NULL')
-            ->getQuery()
-            ->execute();
-    }
-    
+{   
 }

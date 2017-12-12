@@ -1,18 +1,10 @@
 services:
-    #obselete
+
     louvre_resa.cleaner:
         class: Louvre\ResaBundle\Services\ResaCleaner\Cleaner
         arguments:
              - "@doctrine.orm.entity_manager"
-             
-    louvre_resa.data_crypter:
-        class: Louvre\ResaBundle\Services\DataCryptor\DataCryptor
-             
-    louvre_resa.idslinker:
-        class: Louvre\ResaBundle\Services\IdsLinker\IdsLinker
-        arguments:
-             - "@doctrine.orm.entity_manager"
-             
+  
     louvre_resa.bill_maker:
         class: Louvre\ResaBundle\Services\BillMaker\BillMaker
         arguments:
@@ -24,7 +16,7 @@ services:
             - "@doctrine.orm.entity_manager"
 
     louvre_resa.mailer:
-        class: Louvre\ResaBundle\Service\Mailer\Mailer
+        class: Louvre\ResaBundle\Services\Mailer\Mailer
         arguments: 
             - "@mailer"
             - "@twig"

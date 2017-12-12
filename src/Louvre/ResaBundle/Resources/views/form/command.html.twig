@@ -19,63 +19,85 @@
         'class': 'ticketsContener'
 }}) }}
 
-{{ form_errors(form) }}
+    {{ form_errors(form) }}
 
-<div class="email">
-    {{ form_widget(form.email, {'attr': {'placeholder': 'Saisisez votre email' }}) }}
-</div>
+        <div class="email">
+            {{ form_widget(form.email, {'attr': {'placeholder': 'Saisisez votre email' }}) }}
+        </div>
 
 
-{% for ticket in form.tickets %}
+        {% for ticket in form.tickets %}
 
-<div class="header">
-    <h2>Billet n°{{ index }}</h2> 
-    {{ form_errors(ticket.ticketDate) }}
-    
-    {% for error in ticket.vars.errors %}
-        {{ error.message }}
-    {% endfor %}
-    
-    {{ form_errors(ticket.halfDay) }}
-</div>
+            <div class="header">
+                <h2>Billet n°{{ index }}</h2> 
+                {{ form_errors(ticket.ticketDate) }}
 
-<div class="formContener">
-    <table>
-        <tbody>
-            <tr>
-                <td>{{ form_widget(ticket.lastName, {'attr': {'placeholder': 'Nom' }}) }}</td>
-                <td>{{ form_widget(ticket.firstName, {'attr': {'placeholder': 'Prénom' }}) }}</td>
-            </tr> 
-            <tr>
-                <td>{{ form_label(ticket.birthday) }}</td><td>{{ form_widget(ticket.birthday) }}</td>
-            </tr>
-            <tr>
-                <td>{{ form_label(ticket.country) }}</td><td>{{ form_widget(ticket.country) }}</td>
-            </tr>
-            <tr>
-                <td >{{ form_label(ticket.ticketDate) }}</td><td>{{ form_widget(ticket.ticketDate) }}</td>
-            </tr>
-            <tr>
-                <td>{{ form_widget(ticket.halfDay) }}</td><td>{{ form_widget(ticket.reducedPrice) }}</td>
-            </tr> 
-        </tbody>
-    </table>
-</div>
+                    {% for error in ticket.vars.errors %}
+                        {{ error.message }}
+                    {% endfor %}
 
-{% set index = index + 1 %}
+                {{ form_errors(ticket.halfDay) }}
+            </div>
 
-{% endfor %}
+            <div class="formContener">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td colspan="2">{{ form_widget(ticket.lastName, {'attr': {'placeholder': 'Nom', 'class':'min' }}) }}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">{{ form_widget(ticket.firstName, {'attr': {'placeholder': 'Prénom', 'class':'min' }}) }}</td>
+                        </tr>
+                        <tr>
+                            <td>Date de naissance</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">{{ form_widget(ticket.birthday) }}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Pays</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">{{ form_widget(ticket.country) }}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Date de réservation</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">{{ form_widget(ticket.ticketDate) }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ form_widget(ticket.halfDay, { 'label': 'Demi-journée' }) }}</td>
+                            <td>{{ form_widget(ticket.reducedPrice, { 'attr': {'class' : 'reduced'}, 'label': 'Prix réduit' }) }}</td>
+                        </tr> 
+                    </tbody>
+                </table>
+            </div>
 
-{{ form_widget(form.save) }}
+            {% set index = index + 1 %}
+
+        {% endfor %}
+
+    {{ form_widget(form.save, { 'label': 'Continuer' }) }}
+
+    <div id="info">
+        <p>Attention : Il sera nécessaire de présenter sa carte d’étudiant, militaire ou équivalent lors de l’entrée pour bénéficier d'un tarif réduit.</p>
+    </div>
 
 {{ form_end(form) }}
 
+
+
 {% endblock %}
 
-{% block aside %}
-<aside>
-    <p>Il sera nécessaire de présenter sa carte d’étudiant, militaire ou équivalent lors de l’entrée pour bénéficier d'un tarif réduit.</p>
-</aside>
+{% block js %}
+
+    {% javascripts  
+        'bundles/louvreresa/js/command.js'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
 {% endblock %}
 
 
